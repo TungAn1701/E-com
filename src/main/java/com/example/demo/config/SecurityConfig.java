@@ -41,6 +41,9 @@ public class SecurityConfig {
                 .requestMatchers("/error").permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui.html")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/swagger-resources/**")).permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll() // Khách xem hàng
+                .requestMatchers("/api/admin/**").hasRole("ADMIN") // Chỉ Admin mới vào được các link này
                 
                 // 2. Phân quyền cho Giỏ hàng: Cả USER và ADMIN đều vào được
                 .requestMatchers("/api/cart/**").hasAnyRole("USER", "ADMIN")
